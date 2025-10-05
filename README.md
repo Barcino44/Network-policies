@@ -1,4 +1,4 @@
-# Network-policies
+<img width="958" height="66" alt="image" src="https://github.com/user-attachments/assets/84e95779-a3dd-4393-9de1-cdedd8ac3c2b" /># Network-policies
 
 ## Description
 
@@ -443,6 +443,8 @@ spec:
 
 ## 3. Proving the policies.
 
+## Allowed policies
+
 ### 3.1 Access to frontend from internet.
 
 To do that, we are going to take advantage of the LoadBalancer service we create for the frontend and we are going to expone a tunnel to access it.
@@ -452,7 +454,7 @@ minikube tunnel
 ````
 <img width="1039" height="174" alt="image" src="https://github.com/user-attachments/assets/cea1dbc8-adb8-4d5f-b086-e285d9c3d468" />
 
-### 3.2 Access to backend from frontend.
+### 3.2 Accessing to backend from frontend.
 
 To do that, we are going to use the pod created in the frontend namespace to access to the pod created in the backend namespace.
 
@@ -478,7 +480,7 @@ Also, we can access using the pod ip and the port which is listening the httpd s
 
 <img width="995" height="91" alt="image" src="https://github.com/user-attachments/assets/419efba2-1e4d-4af2-8867-a2559f8e0fb2" />
 
-### 3.3 Access to database from backend.
+### 3.3 Accessing to database from backend.
 
 To do that, we are going to use the pod created in the backend namespace to access to the pod created in the db namespace.
 
@@ -489,7 +491,37 @@ kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
 ````
 <img width="984" height="215" alt="image" src="https://github.com/user-attachments/assets/073fa425-9b66-422a-abc7-fc7915535a0b" />
 
-***The database is responding. It responds empty because the database is not prepared to response a http request. We telnet to prove TCP connection***
+***The database is responding. It responds empty because the database is not prepared to response a http request. We telnet to prove TCP connection.***
+
+## Disallowed policies
+
+## 3.4 Accessing the frontend from the backend
+
+Trying to access using the service.
+
+**Using the ip**
+
+<img width="1040" height="159" alt="image" src="https://github.com/user-attachments/assets/13ac5954-5b42-473b-8654-5e3f1df8ba9c" />
+
+<img width="956" height="63" alt="image" src="https://github.com/user-attachments/assets/1689642f-3360-47d4-a76a-e08924c3aa8c" />
+
+**Using the dns**
+
+<img width="992" height="84" alt="image" src="https://github.com/user-attachments/assets/e510eedd-4559-4801-9215-5b5907a7979b" />
+
+Trying to access using the pod.
+
+<img width="1161" height="89" alt="image" src="https://github.com/user-attachments/assets/ead82db8-0a28-454e-a319-eb5ed68a9568" />
+
+<img width="960" height="65" alt="image" src="https://github.com/user-attachments/assets/dcae02ac-8f13-475b-ab46-ce1bb4e3e8d7" />
+
+As we see, every time is disallowed the access.
+
+## 3.4 Accessing the database from the frontend
+
+<img width="1010" height="84" alt="image" src="https://github.com/user-attachments/assets/c45a4fc0-d2a8-40b3-bfe1-4959c88ee293" />
+
+In this case, it is also not allowed the communication.
 
 
 
