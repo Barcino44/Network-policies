@@ -63,9 +63,9 @@ spec:
         app: backend
     spec:
       containers:
-      - name: http-echo
-        image: hashicorp/http-echo
-        args: ["-text=hello from backend"]
+      - name: backend
+        image: curlimages/curl:latest
+        command: ["sh", "-c", "while true; do echo -e 'HTTP/1.1 200 OK\r\n\r\nhello from backend' | nc -l -p 5678; done"]
         ports:
         - containerPort: 5678
 ---
