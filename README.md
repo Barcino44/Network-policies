@@ -556,7 +556,15 @@ kubectl exec -it frontend-67ddc659fd-jk7q2 -n frontend -- bash
 
 And we have the following result if we use dns.
 
-<img width="1002" height="64" alt="image" src="https://github.com/user-attachments/assets/9afd5292-6190-4fab-ab43-e5f0cfbc4be1" />
+<p align="center">
+  <img width="1002" height="64" alt="image" src="https://github.com/user-attachments/assets/9afd5292-6190-4fab-ab43-e5f0cfbc4be1" />
+</p>
+
+if we use the ip of the service, we have.
+
+<p align="center">
+  <img width="974" height="64" alt="image" src="https://github.com/user-attachments/assets/0c48c87b-8fae-4213-9a17-621747630a5b" />
+</p>
 
 In this case, it is also not allowed the communication.
 
