@@ -1,16 +1,17 @@
 # Network-policies
 
-## Description:
+## Description
 
 The objective of this work is to demonstrate the use of network-policies to build an application based in a layered security model.
 
-## Step followed:
+## Step followed
 
 ## 1. Creation of the application architecture.
 
 In the ``deploments.yaml`` file, it is defined the deployment and services who will be used to create the application.
 
-### 1.1. Creation of namespaces:
+### 1.1. Creation of namespaces
+
 ````yaml
 ApiVersion: v1
 kind: Namespace
@@ -30,7 +31,7 @@ metadata:
 ````
 In the first part of the file, there are created the corresponding namespaces in order to modularize the application. There are different namespaces to the frontend, backend and db.
 
-### 1.2 Creation of the deployment and service for the frontend:
+### 1.2 Creation of the deployment and service for the frontend
 
 ````yaml
 apiVersion: apps/v1
@@ -134,8 +135,10 @@ In this part was defined the mainly characteristics of the frontend.
 
 - We associate the service with the backend namespace we create before.
 - We use a selector to redirect the traffic to the pods with label ``backend``.
-- We are going to use the 80 port for the communication beetween pods in the cluster and 5678 will be which our service will listen.
+- We are going to use the 80 port for the communication beetween pods in the cluster. 5678 will be listened for our httpd service.
 - We create a service type of ClusterIP to avoid allow external access.
+
+### 1.3. Creation of the deployment and service for the database:
 
 ````yaml
 apiVersion: apps/v1
@@ -176,5 +179,36 @@ spec:
   type: ClusterIP
 
 ````
+
+**In the deployment:**
+
+- We associate the deployment with the db namespace we create before.
+- We create a label called ``db``. This will be use to associate network policies in the next steps.
+- We decided to use a postgres image to create the deployment.
+
+**In the service:**
+
+- We associate the service with the db namespace we create before.
+- We use a selector to redirect the traffic to the pods with label ``db``.
+- We are going to use the 5432 port for the communication beetween pods in the cluster (Postgres port).
+- We create a service type of ClusterIP to avoid allow external access.
+
+## 2. Creation of the policies
+
+We defined different policies to avoid/allow comunication between diferent modules of our application. To do that, first we have to install a CNI complement in the cluster.
+
+In this case, we decided to use calico.
+
+````
+minikube start --cni=calico
+````
+We can confirm that the complement is correctly installed if we look for its pods.
+
+````
+kubectl get pods -l k8s-app=calico-node -A
+````
+<img width="830" height="89" alt="image" src="https://github.com/user-attachments/assets/daa6b4c5-0ac4-464d-899c-a841a382492b" />
+
+### 2.1 Default policies.
 
 
