@@ -209,6 +209,121 @@ kubectl get pods -l k8s-app=calico-node -A
 ````
 <img width="830" height="89" alt="image" src="https://github.com/user-attachments/assets/daa6b4c5-0ac4-464d-899c-a841a382492b" />
 
-### 2.1 Default policies.
+### 2.1 Default policies
+
+In the ``default-deny.yaml`` file, we create a policy to deny all the trafic (minimum access principle). These rules will re-written in the following steps.
+
+````yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: frontend
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: backend
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: db
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []
+````
+
+# 2.2 Frontend policies
+
+In the ``frontend-policies.yaml`` file, we create a ingress and egress policies according to the good practices presented in class.
+
+- Internet should have access to frontend.
+- Frontend should have access to backend.
+
+````yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-allow-ingress-internet
+  namespace: frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: frontend-allow-egress-to-backend
+  namespace: frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: backend
+      podSelector:
+        matchLabels:
+          app: backend
+    ports:
+    - protocol: TCP
+      port: 5678
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: UDP
+      port: 53     
+    - protocol: TCP
+      port: 53
+````
+
+In this file is defined.
+
+**Ingress policies**
+
+-  We allow the ingress of traffic of any ip (0.0.0.0). The frontend should be accessed from out of the cluster.
+
+**Egress policies**
+
+- We allow the egress od traffic to the backend. To do that we specify the destiny namespace and pods using the label.
+- The communication will be done using the port 5678.
+- It is allowed DNS policies to solve the communication of the backend using names instead of ips.  
+
 
 
