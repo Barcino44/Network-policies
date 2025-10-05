@@ -492,7 +492,7 @@ kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
   <img width="984" height="215" alt="image" src="https://github.com/user-attachments/assets/073fa425-9b66-422a-abc7-fc7915535a0b" />
 </p>
 
-***The database is responding. It responds empty because the database is not prepared to response a http request. We telnet to prove TCP connection.***
+***The database is responding. It responds empty because the it is not prepared to response a http request. We use telnet to prove TCP connection.***
 
 ## Disallowed policies
 
