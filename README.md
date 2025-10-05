@@ -484,13 +484,12 @@ To do that, we are going to use the pod created in the backend namespace to acce
 
 <img width="670" height="87" alt="image" src="https://github.com/user-attachments/assets/f868f8d9-4ad0-410e-95ed-db612748593e" />
 
-
 ````
 kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
 ````
 <img width="984" height="215" alt="image" src="https://github.com/user-attachments/assets/073fa425-9b66-422a-abc7-fc7915535a0b" />
 
-In this case we can see we have connection to db. **It responds empty because there are no prepare to response and http request**
+***The database is responding. It responds empty because the database is not prepared to response a http request. We telnet to prove TCP connection***
 
 
 
