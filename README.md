@@ -554,7 +554,7 @@ Again, we try to access to the backend using the frontend pod.
 kubectl exec -it frontend-67ddc659fd-jk7q2 -n frontend -- bash
 ````
 
-And we have the following result.
+And we have the following result if we use dns.
 
 <img width="1002" height="64" alt="image" src="https://github.com/user-attachments/assets/9afd5292-6190-4fab-ab43-e5f0cfbc4be1" />
 
