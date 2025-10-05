@@ -1,5 +1,3 @@
-<img width="958" height="66" alt="image" src="https://github.com/user-attachments/assets/84e95779-a3dd-4393-9de1-cdedd8ac3c2b" /># Network-policies
-
 ## Description
 
 The objective of this work is to demonstrate the use of network-policies to build an application based in a layered security model.
@@ -208,7 +206,9 @@ We can confirm that the complement is correctly installed if we look for its pod
 ````
 kubectl get pods -l k8s-app=calico-node -A
 ````
-<img width="830" height="89" alt="image" src="https://github.com/user-attachments/assets/daa6b4c5-0ac4-464d-899c-a841a382492b" />
+<p align="center">
+  <img width="830" height="89" alt="image" src="https://github.com/user-attachments/assets/daa6b4c5-0ac4-464d-899c-a841a382492b" />
+</p>
 
 ### 2.1 Default policies
 
@@ -452,44 +452,57 @@ To do that, we are going to take advantage of the LoadBalancer service we create
 ````
 minikube tunnel
 ````
-<img width="1039" height="174" alt="image" src="https://github.com/user-attachments/assets/cea1dbc8-adb8-4d5f-b086-e285d9c3d468" />
+<p align="center">
+  <img width="1039" height="174" alt="image" src="https://github.com/user-attachments/assets/cea1dbc8-adb8-4d5f-b086-e285d9c3d468" />
+</p>
 
 ### 3.2 Accessing to backend from frontend.
 
 To do that, we are going to use the pod created in the frontend namespace to access to the pod created in the backend namespace.
 
-<img width="664" height="88" alt="image" src="https://github.com/user-attachments/assets/a2f8ad2f-d951-4cbc-b20c-d96b3c2df8d1" />
+<p align="center">
+  <img width="664" height="88" alt="image" src="https://github.com/user-attachments/assets/a2f8ad2f-d951-4cbc-b20c-d96b3c2df8d1" />
+</p>
 
 ````
 kubectl exec -it frontend-67ddc659fd-jk7q2 -n frontend -- bash
 ````
 
-We can access to backend using the backend-service.
+### Accessing using the backend-service.
 
 **Using the ip**
 
+<p align="center">
 <img width="992" height="88" alt="image" src="https://github.com/user-attachments/assets/53442d7a-024d-49e6-aa28-507f062448bb" />
+</p>
 
 **Using dns**
 
-<img width="1012" height="89" alt="image" src="https://github.com/user-attachments/assets/e6eb8d54-22d3-4556-894a-735ea299c1bb" />
+<p align="center">
+  <img width="1012" height="89" alt="image" src="https://github.com/user-attachments/assets/e6eb8d54-22d3-4556-894a-735ea299c1bb" />
+</p>
 
 **We access to the 80 port because the backend-svc is listening form there.**
 
-Also, we can access using the pod ip and the port which is listening the httpd service.
+### Acessing using the backend pod ip.
 
-<img width="995" height="91" alt="image" src="https://github.com/user-attachments/assets/419efba2-1e4d-4af2-8867-a2559f8e0fb2" />
+<p align="center">
+  <img width="995" height="91" alt="image" src="https://github.com/user-attachments/assets/419efba2-1e4d-4af2-8867-a2559f8e0fb2" />
+</p>
 
 ### 3.3 Accessing to database from backend.
 
 To do that, we are going to use the pod created in the backend namespace to access to the pod created in the db namespace.
-
-<img width="670" height="87" alt="image" src="https://github.com/user-attachments/assets/f868f8d9-4ad0-410e-95ed-db612748593e" />
+<p align="center">
+  <img width="670" height="87" alt="image" src="https://github.com/user-attachments/assets/f868f8d9-4ad0-410e-95ed-db612748593e" />
+</p>
 
 ````
 kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
 ````
-<img width="984" height="215" alt="image" src="https://github.com/user-attachments/assets/073fa425-9b66-422a-abc7-fc7915535a0b" />
+<p align="center">
+  <img width="984" height="215" alt="image" src="https://github.com/user-attachments/assets/073fa425-9b66-422a-abc7-fc7915535a0b" />
+</p>
 
 ***The database is responding. It responds empty because the database is not prepared to response a http request. We telnet to prove TCP connection.***
 
@@ -497,31 +510,71 @@ kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
 
 ## 3.4 Accessing the frontend from the backend
 
-Trying to access using the service.
+To do that, we are going to use the pod created in the backend namespace to access to the pod created in the frontend namespace.
+<p align="center">
+  <img width="670" height="87" alt="image" src="https://github.com/user-attachments/assets/f868f8d9-4ad0-410e-95ed-db612748593e" />
+</p>
+
+````
+kubectl exec -it backend-7fd7778f9f-2trpj -n backend -- sh
+````
+We try to access of two ways using the service and directly using the pods.
+
+### Trying to access using the frontend service
 
 **Using the ip**
 
-<img width="1040" height="159" alt="image" src="https://github.com/user-attachments/assets/13ac5954-5b42-473b-8654-5e3f1df8ba9c" />
+We look for the ip of the frontend service and the port.
 
-<img width="956" height="63" alt="image" src="https://github.com/user-attachments/assets/1689642f-3360-47d4-a76a-e08924c3aa8c" />
+<p align="center">
+  <img width="1040" height="159" alt="image" src="https://github.com/user-attachments/assets/13ac5954-5b42-473b-8654-5e3f1df8ba9c" />
+</p>
+
+And we try to access using it. 
+
+<p align="center">
+  <img width="956" height="63" alt="image" src="https://github.com/user-attachments/assets/1689642f-3360-47d4-a76a-e08924c3aa8c" />
+</p>
 
 **Using the dns**
 
-<img width="992" height="84" alt="image" src="https://github.com/user-attachments/assets/e510eedd-4559-4801-9215-5b5907a7979b" />
+<p align="center">
+  <img width="992" height="84" alt="image" src="https://github.com/user-attachments/assets/e510eedd-4559-4801-9215-5b5907a7979b" />
+</p>
 
-Trying to access using the pod.
+### Trying to access using the frontend pod ip
 
-<img width="1161" height="89" alt="image" src="https://github.com/user-attachments/assets/ead82db8-0a28-454e-a319-eb5ed68a9568" />
+We look for the ip of frontend pod.
 
-<img width="960" height="65" alt="image" src="https://github.com/user-attachments/assets/dcae02ac-8f13-475b-ab46-ce1bb4e3e8d7" />
+<p align="center">
+  <img width="1161" height="89" alt="image" src="https://github.com/user-attachments/assets/ead82db8-0a28-454e-a319-eb5ed68a9568" />
+</p>
+
+And we use it to try access. 
+
+<p align="center">
+  <img width="960" height="65" alt="image" src="https://github.com/user-attachments/assets/dcae02ac-8f13-475b-ab46-ce1bb4e3e8d7" />
+</p>
 
 As we see, every time is disallowed the access.
 
 ## 3.4 Accessing the database from the frontend
 
-<img width="1010" height="84" alt="image" src="https://github.com/user-attachments/assets/c45a4fc0-d2a8-40b3-bfe1-4959c88ee293" />
+Again, we try to access to the backend using the frontend pod.
+
+````
+kubectl exec -it frontend-67ddc659fd-jk7q2 -n frontend -- bash
+````
+
+And we have the following result.
+
+<img width="1002" height="64" alt="image" src="https://github.com/user-attachments/assets/9afd5292-6190-4fab-ab43-e5f0cfbc4be1" />
 
 In this case, it is also not allowed the communication.
+
+# References
+
+* http://docs-tigera-io.translate.goog/calico/latest/getting-started/kubernetes/minikube?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
 
 
 
