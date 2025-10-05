@@ -102,23 +102,11 @@ spec:
         app: backend
     spec:
       containers:
-      - name: http-echo
-        image: hashicorp/http-echo
-        args: ["-text=hello from backend"]
+      - name: backend
+        image: curlimages/curl:latest
+        command: ["sh", "-c", "while true; do echo -e 'HTTP/1.1 200 OK\r\n\r\nhello from backend' | nc -l -p 5678; done"]
         ports:
         - containerPort: 5678
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-svc
-  namespace: backend
-spec:
-  selector:
-    app: backend
-  ports:
-  - port: 80
-    targetPort: 5678
-  type: ClusterIP
 ---
 ````
 In this part was defined the mainly characteristics of the frontend.
@@ -127,13 +115,13 @@ In this part was defined the mainly characteristics of the frontend.
 
 - We associate the deployment with the backend namespace we create before.
 - We create a label called ``backend``. This will be use to associate network policies in the next steps.
-- We decided to use the hashicorp/http-echo image to create the deployment. When we consult the backend we will get a ``hello from backend``response.
+- We decided to use the curlimages/curl:latest image to create the deployment. When we consult the backend we will get a ``hello from backend``response.
 
 **In the service:**
 
 - We associate the service with the backend namespace we create before.
 - We use a selector to redirect the traffic to the pods with label ``backend``.
-- We are going to use the 80 port for the communication beetween pods in the cluster. 5678 will be listened for our httpd service.
+- We are going to use the 80 port for the communication beetween pods in the cluster. 5678 will be listened for our backend image.
 - We create a service type of ClusterIP to avoid allow external access.
 
 ### 1.3. Creation of the deployment and service for the database:
