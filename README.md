@@ -444,6 +444,10 @@ minikube tunnel
   <img width="1039" height="174" alt="image" src="https://github.com/user-attachments/assets/cea1dbc8-adb8-4d5f-b086-e285d9c3d468" />
 </p>
 
+<p align="center">
+  <img width="1887" height="369" alt="image" src="https://github.com/user-attachments/assets/2686404f-abee-4b6e-8aea-79bb4cf54523" />
+</p>
+
 ### 3.2 Accessing to backend from frontend.
 
 To do that, we are going to use the pod created in the frontend namespace to access to the pod created in the backend namespace.
